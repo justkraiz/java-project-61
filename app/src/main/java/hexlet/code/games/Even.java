@@ -1,6 +1,6 @@
-package hexlet.code;
+package hexlet.code.games;
 
-import java.util.Random;
+import hexlet.code.Engine;
 
 public class Even {
     String rules = "Answer 'yes' if the number is even, otherwise answer 'no'.";
@@ -10,11 +10,11 @@ public class Even {
     boolean isLose = false;
 
     public Even() {
-    Engine.printRules(rules);
-    startGame();
+        Engine.start(rules);
+        startGame();
     }
 
-    private void startGame() {
+    public void startGame() {
         while(!isLose) {
             askQuestion();
             rightAnswer = setRightAnswer();
@@ -24,18 +24,12 @@ public class Even {
 
 
     }
-    private void askQuestion() {
-        question = generateNumber();
+    public void askQuestion() {
+        question = String.valueOf(Engine.generateNumber());
         System.out.println("Question: " + question);
     }
-    private String setRightAnswer() {
+    public String setRightAnswer() {
         return Integer.parseInt(question) % 2 == 0 ? "yes" : "no";
     }
 
-    private String generateNumber() {
-        Random random = new Random();
-
-        int randomNumber = random.nextInt(20) + 1; // Generate random num 1-20;
-        return String.valueOf(randomNumber);
-    }
 }

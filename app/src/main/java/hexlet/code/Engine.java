@@ -1,12 +1,18 @@
 package hexlet.code;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Engine {
     static int countWins = 0;
     static String userName = "";
 
-    static void welcome() {
+    public static void start(String gameRules) {
+        welcome();
+        printRules(gameRules);
+    }
+
+    public static void welcome() {
         System.out.println("Welcome to the Brain Games!");
         System.out.print("May I have your name? ");
         userName = new Scanner(System.in).nextLine();
@@ -37,11 +43,15 @@ public class Engine {
         }
     }
 
-    private static void printCongratulations() {
-        System.out.println("Congratulations, " + userName + "!");
+    public static int generateNumber() {
+        Random random = new Random();
+        return random.nextInt(20) + 1; //generate 1-20 random number;
     }
 
-    static void printIncorrectAnswerMessage(String userAnswer, String rightAnswer) {
+    public static void printCongratulations() {
+        System.out.println("Congratulations, " + userName + "!");
+    }
+    public static void printIncorrectAnswerMessage(String userAnswer, String rightAnswer) {
         System.out.printf("'%s' is wrong answer ;(. Correct answer was '%s'.%nLet's try again, %s!%n",
                 userAnswer, rightAnswer, userName);
     }
