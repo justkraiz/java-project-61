@@ -2,16 +2,14 @@ package hexlet.code.games;
 
 import hexlet.code.Engine;
 
-public class Even {
-    String rules = "Answer 'yes' if the number is even, otherwise answer 'no'.";
+public final class Even {
 
-    String userAnswer = "";
-    String rightAnswer = "";
-    String question = "";
+    private String question = "";
 
-    boolean isLose = false; // stop while cycle when lose
+    private boolean isLose = false; // stop while cycle when lose
 
     public Even() {
+        String rules = "Answer 'yes' if the number is even, otherwise answer 'no'.";
         Engine.start(rules);
         startGame();
     }
@@ -19,8 +17,8 @@ public class Even {
     public void startGame() {
         while (!isLose) {
             askQuestion();
-            rightAnswer = setRightAnswer();
-            userAnswer = Engine.getUserAnswer();
+            String rightAnswer = setRightAnswer();
+            String userAnswer = Engine.getUserAnswer();
             isLose = Engine.isLose(userAnswer, rightAnswer);
         }
     }

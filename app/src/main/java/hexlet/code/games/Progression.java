@@ -2,21 +2,19 @@ package hexlet.code.games;
 
 import hexlet.code.Engine;
 
-public class Progression {
-    String rules = "What number is missing in the progression?";
+public final class Progression {
 
-    int firstNum = 0;
-    int valueBetweenNextNum = 0;
-    int numberOfTerms = 0;
-    int hiddenIndexInArray = 0;
+    private int firstNum = 0;
+    private int valueBetweenNextNum = 0;
+    private int numberOfTerms = 0;
+    private int hiddenIndexInArray = 0;
 
-    int[] question;
-    String rightAnswer = "";
-    String userAnswer = "";
+    private int[] question;
 
-    boolean isLose = false; // stop while cycle when lose
+    private boolean isLose = false; // stop while cycle when lose
 
     public Progression() {
+        String rules = "What number is missing in the progression?";
         Engine.start(rules);
         startGame();
     }
@@ -24,8 +22,8 @@ public class Progression {
     public void startGame() {
         while (!isLose) {
             askQuestion();
-            rightAnswer = setRightAnswer();
-            userAnswer = Engine.getUserAnswer();
+            String rightAnswer = setRightAnswer();
+            String userAnswer = Engine.getUserAnswer();
             isLose = Engine.isLose(userAnswer, rightAnswer);
         }
     }
@@ -40,7 +38,7 @@ public class Progression {
         numberOfTerms = Engine.generateNumberInRange(5, 10);
         hiddenIndexInArray = Engine.generateNumberInRange(0, numberOfTerms - 1);
         question = generateProgression();
-        System.out.println("Question: ");
+        System.out.print("Question: ");
         questionArrPrinter();
     }
 

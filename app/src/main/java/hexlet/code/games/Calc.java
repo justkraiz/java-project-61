@@ -4,18 +4,16 @@ import hexlet.code.Engine;
 
 import java.util.Random;
 
-public class Calc {
-    String rules = "What is the result of the expression?";
-    String userAnswer = "";
-    String rightAnswer = "";
+public final class Calc {
 
-    int firstNum = 0;
-    int secondNum = 0;
-    String operator = "";
+    private int firstNum = 0;
+    private int secondNum = 0;
+    private String operator = "";
 
-    boolean isLose = false;
+    private boolean isLose = false;
 
     public Calc() {
+        String rules = "What is the result of the expression?";
         Engine.start(rules);
         startGame();
     }
@@ -23,14 +21,14 @@ public class Calc {
     public void startGame() {
         while (!isLose) {
             askQuestion();
-            rightAnswer = setRightAnswer();
-            userAnswer = Engine.getUserAnswer();
+            String rightAnswer = setRightAnswer();
+            String userAnswer = Engine.getUserAnswer();
             isLose = Engine.isLose(userAnswer, rightAnswer);
         }
     }
 
     public String setRightAnswer() {
-        return String.valueOf(calculate(firstNum, secondNum, operator));
+        return String.valueOf(calculate());
     }
 
     public void askQuestion() {
@@ -46,7 +44,7 @@ public class Calc {
         return operators[index];
     }
 
-    public static int calculate(int firstNum, int secondNum, String operator) {
+    public int calculate() {
         return switch (operator) {
             case "+" -> firstNum + secondNum;
             case "-" -> firstNum - secondNum;

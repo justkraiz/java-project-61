@@ -2,14 +2,12 @@ package hexlet.code.games;
 
 import hexlet.code.Engine;
 
-public class Prime {
-    String rules = "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
-    int question = 0;
-    String userAnswer = "";
-    String rightAnswer = "";
-    boolean isLose = false;
+public final class Prime {
+    private int question = 0;
+    private boolean isLose = false;
 
     public Prime() {
+        String rules = "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
         Engine.start(rules);
         startGame();
     }
@@ -17,8 +15,8 @@ public class Prime {
     public void startGame() {
         while (!isLose) {
             askQuestion();
-            rightAnswer = setRightAnswer();
-            userAnswer = Engine.getUserAnswer();
+            String rightAnswer = setRightAnswer();
+            String userAnswer = Engine.getUserAnswer();
             isLose = Engine.isLose(userAnswer, rightAnswer);
         }
     }

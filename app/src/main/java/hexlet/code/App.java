@@ -9,7 +9,7 @@ import hexlet.code.games.Progression;
 import java.util.Scanner;
 
 public class App {
-    public static String userMenuChoice = "";
+    private static String userMenuChoice = "";
 
     public static void main(String[] args) {
         start();

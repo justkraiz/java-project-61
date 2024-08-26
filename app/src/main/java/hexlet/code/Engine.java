@@ -4,8 +4,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Engine {
-    static int countWins = 0;
-    static String userName = "";
+    private static int countWins = 0;
+    private static String userName = "";
 
     public static void start(String gameRules) {
         welcome();
