@@ -41,7 +41,7 @@ public class Calc {
     }
 
     public String generateOperator() {
-        final String[] operators = {"+", "-", "*", "/"};
+        final String[] operators = {"+", "-", "*"};
         int index = new Random().nextInt(operators.length);
         return operators[index];
     }
