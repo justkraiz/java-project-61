@@ -3,12 +3,14 @@ package hexlet.code;
 import hexlet.code.games.Calc;
 import hexlet.code.games.Even;
 import hexlet.code.games.Gcd;
+import hexlet.code.games.Prime;
 import hexlet.code.games.Progression;
 
 import java.util.Scanner;
 
 public class App {
     public static String userMenuChoice = "";
+
     public static void main(String[] args) {
         start();
 
@@ -24,6 +26,7 @@ public class App {
         System.out.println("3 - Calc");
         System.out.println("4 - GCD");
         System.out.println("5 - Progression");
+        System.out.println("6 - Prime");
         System.out.println("0 - Exit");
         System.out.print("Your choice: ");
         userMenuChoice = new Scanner(System.in).nextLine();
@@ -36,6 +39,7 @@ public class App {
             case "3" -> new Calc();
             case "4" -> new Gcd();
             case "5" -> new Progression();
+            case "6" -> new Prime();
             case "0" -> System.exit(0);
             default -> System.out.println("Invalid choice");
         }

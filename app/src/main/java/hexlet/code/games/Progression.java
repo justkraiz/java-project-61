@@ -3,6 +3,8 @@ package hexlet.code.games;
 import hexlet.code.Engine;
 
 public class Progression {
+    String rules = "What number is missing in the progression?";
+
     int firstNum = 0;
     int valueBetweenNextNum = 0;
     int numberOfTerms = 0;
@@ -13,8 +15,6 @@ public class Progression {
     String userAnswer = "";
 
     boolean isLose = false; // stop while cycle when lose
-
-    String rules = "What number is missing in the progression?";
 
     public Progression() {
         Engine.start(rules);

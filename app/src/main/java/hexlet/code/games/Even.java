@@ -4,9 +4,11 @@ import hexlet.code.Engine;
 
 public class Even {
     String rules = "Answer 'yes' if the number is even, otherwise answer 'no'.";
+
     String userAnswer = "";
     String rightAnswer = "";
     String question = "";
+
     boolean isLose = false; // stop while cycle when lose
 
     public Even() {

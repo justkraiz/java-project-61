@@ -8,9 +8,11 @@ public class Calc {
     String rules = "What is the result of the expression?";
     String userAnswer = "";
     String rightAnswer = "";
+
     int firstNum = 0;
     int secondNum = 0;
     String operator = "";
+
     boolean isLose = false;
 
     public Calc() {
