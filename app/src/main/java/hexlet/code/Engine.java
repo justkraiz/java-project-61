@@ -6,6 +6,8 @@ import java.util.Scanner;
 public class Engine {
     private static int countWins = 0;
     private static String userName = "";
+    private static final int MAX_WINS = 3;
+    private static final int NUM_GENERATING_RANGE = 20;
 
     public static void start(String gameRules) {
         welcome();
@@ -32,7 +34,7 @@ public class Engine {
         if (userAnswer.equalsIgnoreCase(rightAnswer)) {
             System.out.println("Correct!");
             countWins++;
-            if (countWins == 3) {
+            if (countWins == MAX_WINS) {
                 printCongratulations();
                 System.exit(0);
             }
@@ -50,7 +52,7 @@ public class Engine {
 
     public static int generateNumber() {
         Random random = new Random();
-        return random.nextInt(20) + 1; //generate 1-20 random number;
+        return random.nextInt(NUM_GENERATING_RANGE) + 1; //generate 1-20 random number;
     }
 
     public static void printCongratulations() {

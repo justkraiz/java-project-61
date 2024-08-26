@@ -4,6 +4,8 @@ import hexlet.code.Engine;
 
 public final class Progression {
 
+    private static final int RANGE_MIN = 5;
+    private static final int RANGE_MAX = 10;
     private int firstNum = 0;
     private int valueBetweenNextNum = 0;
     private int numberOfTerms = 0;
@@ -35,7 +37,7 @@ public final class Progression {
     public void askQuestion() {
         firstNum = Engine.generateNumber();
         valueBetweenNextNum = Engine.generateNumber();
-        numberOfTerms = Engine.generateNumberInRange(5, 10);
+        numberOfTerms = Engine.generateNumberInRange(RANGE_MIN, RANGE_MAX);
         hiddenIndexInArray = Engine.generateNumberInRange(0, numberOfTerms - 1);
         question = generateProgression();
         System.out.print("Question: ");

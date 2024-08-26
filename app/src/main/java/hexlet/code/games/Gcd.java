@@ -2,15 +2,13 @@ package hexlet.code.games;
 
 import hexlet.code.Engine;
 
-public class Gcd {
-    String rules = "Find the greatest common divisor of given numbers.";
-    String userAnswer = "";
-    String rightAnswer = "";
-    int firstNum = 0;
-    int secondNum = 0;
-    boolean isLose = false;
+public final class Gcd {
+    private int firstNum = 0;
+    private int secondNum = 0;
+    private boolean isLose = false;
 
     public Gcd() {
+        String rules = "Find the greatest common divisor of given numbers.";
         Engine.start(rules);
         startGame();
     }
@@ -18,8 +16,8 @@ public class Gcd {
     public void startGame() {
         while (!isLose) {
             askQuestion();
-            rightAnswer = setRightAnswer();
-            userAnswer = Engine.getUserAnswer();
+            String rightAnswer = setRightAnswer();
+            String userAnswer = Engine.getUserAnswer();
             isLose = Engine.isLose(userAnswer, rightAnswer);
         }
     }
