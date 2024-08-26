@@ -2,7 +2,7 @@ package hexlet.code;
 
 import hexlet.code.games.Calc;
 import hexlet.code.games.Even;
-
+import hexlet.code.games.Gcd;
 import java.util.Scanner;
 
 public class App {
@@ -20,6 +20,7 @@ public class App {
         System.out.println("1 - Greet");
         System.out.println("2 - Even");
         System.out.println("3 - Calc");
+        System.out.println("4 - GCD");
         System.out.println("0 - Exit");
         System.out.print("Your choice: ");
         userMenuChoice = new Scanner(System.in).nextLine();
@@ -30,12 +31,13 @@ public class App {
             case "1" -> Engine.welcome();
             case "2" -> new Even();
             case "3" -> new Calc();
+            case "4" -> new Gcd();
             case "0" -> System.exit(0);
             default -> System.out.println("Invalid choice");
         }
     }
 
-    //Файл App.java предназначен
+    // Файл App.java предназначен
     // только для отображения игрового меню,
     // выбора и запуска нужной игры
 }

@@ -19,15 +19,15 @@ public class Calc {
     }
 
     public void startGame() {
-        while(!isLose) {
+        while (!isLose) {
             askQuestion();
-            rightAnswer = setRightAnswer(firstNum, secondNum, operator);
+            rightAnswer = setRightAnswer();
             userAnswer = Engine.getUserAnswer();
             isLose = Engine.isLose(userAnswer, rightAnswer);
         }
     }
 
-    public String setRightAnswer(int firstNum, int secondNum, String operator) {
+    public String setRightAnswer() {
         return String.valueOf(calculate(firstNum, secondNum, operator));
     }
 

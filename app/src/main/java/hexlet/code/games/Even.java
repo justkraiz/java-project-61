@@ -7,7 +7,7 @@ public class Even {
     String userAnswer = "";
     String rightAnswer = "";
     String question = "";
-    boolean isLose = false;
+    boolean isLose = false; // stop while cycle when lose
 
     public Even() {
         Engine.start(rules);
@@ -15,14 +15,12 @@ public class Even {
     }
 
     public void startGame() {
-        while(!isLose) {
+        while (!isLose) {
             askQuestion();
             rightAnswer = setRightAnswer();
             userAnswer = Engine.getUserAnswer();
             isLose = Engine.isLose(userAnswer, rightAnswer);
         }
-
-
     }
     public void askQuestion() {
         question = String.valueOf(Engine.generateNumber());
