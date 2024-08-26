@@ -12,6 +12,6 @@ https://asciinema.org/a/oBMMJbOtNSzVpeiqfocpEExGr
 Demo of the game "GCD" is available here: 
 https://asciinema.org/a/AjyfyMpdui1WWzdA47Gc27xwM
 
-
-
+Demo of the Game "Progression" is available here: 
+https://asciinema.org/a/aNnSOzGCRPIu1o8l5qlVTGzJK
 

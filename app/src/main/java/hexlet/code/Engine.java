@@ -43,6 +43,11 @@ public class Engine {
         }
     }
 
+    public static int generateNumberInRange(int min, int max) {
+        Random random = new Random();
+        return random.nextInt((max - min) + 1) + min;
+    }
+
     public static int generateNumber() {
         Random random = new Random();
         return random.nextInt(20) + 1; //generate 1-20 random number;
