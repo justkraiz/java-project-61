@@ -37,7 +37,7 @@ public class Calc {
         firstNum = Engine.generateNumber();
         secondNum = Engine.generateNumber();
         operator = generateOperator();
-        System.out.println("Question: " + firstNum + " " + operator + " " + secondNum);
+        System.out.printf("Question: %d %s %d%n", firstNum, operator, secondNum);
     }
 
     public String generateOperator() {
