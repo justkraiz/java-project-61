@@ -3,36 +3,36 @@ package hexlet.code.games;
 import hexlet.code.Engine;
 
 public final class Gcd {
-    private int firstNum = 0;
-    private int secondNum = 0;
-    private boolean isLose = false;
+    private static final String RULES = "Find the greatest common divisor of given numbers.";
+    private static final int NUM_GENERATING_RANGE = 20;
 
-    public Gcd() {
-        String rules = "Find the greatest common divisor of given numbers.";
-        Engine.start(rules);
-        startGame();
+    private static final int LENGTH = Engine.getMaxWins();
+    private static final String[] QUESTIONS = new String[LENGTH];
+    private static final String[] ANSWERS = new String[LENGTH];
+
+    public static void play() {
+        preparation(LENGTH);
+        Engine.start(RULES, QUESTIONS, ANSWERS);
     }
 
-    public void startGame() {
-        while (!isLose) {
-            askQuestion();
-            String rightAnswer = setRightAnswer();
-            String userAnswer = Engine.getUserAnswer();
-            isLose = Engine.isLose(userAnswer, rightAnswer);
+    public static void preparation(int length) {
+        for (int i = 0; i < length; i++) {
+            int firstNumber = Engine.generateNumber(NUM_GENERATING_RANGE);
+            int secondNumber = Engine.generateNumber(NUM_GENERATING_RANGE);
+            QUESTIONS[i] = fillQuestion(firstNumber, secondNumber);
+            ANSWERS[i] = fillAnswer(firstNumber, secondNumber);
         }
     }
 
-    public void askQuestion() {
-        firstNum = Engine.generateNumber();
-        secondNum = Engine.generateNumber();
-        System.out.println("Question: " + firstNum + " " + secondNum);
+    public static String fillQuestion(int firstNumber, int secondNumber) {
+        return firstNumber + " " + secondNumber;
     }
 
-    public String setRightAnswer() {
-        return String.valueOf(getNodOf(firstNum, secondNum));
+    public static String fillAnswer(int firstNumber, int secondNumber) {
+        return String.valueOf(gameLogic(firstNumber, secondNumber));
     }
 
-    public int getNodOf(int x, int y) {
+    public static int gameLogic(int x, int y) {
         while (x != y) {
             if (x > y) {
                 x = x - y;

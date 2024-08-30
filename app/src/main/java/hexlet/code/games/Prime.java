@@ -3,35 +3,36 @@ package hexlet.code.games;
 import hexlet.code.Engine;
 
 public final class Prime {
-    private int question = 0;
-    private boolean isLose = false;
+    private static final String RULES = "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
+    private static final int NUM_GENERATING_RANGE = 20;
 
-    public Prime() {
-        String rules = "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
-        Engine.start(rules);
-        startGame();
+    private static final int LENGTH = Engine.getMaxWins();
+    private static final String[] QUESTIONS = new String[LENGTH];
+    private static final String[] ANSWERS = new String[LENGTH];
+
+    public static void play() {
+        preparation(LENGTH);
+        Engine.start(RULES, QUESTIONS, ANSWERS);
     }
 
-    public void startGame() {
-        while (!isLose) {
-            askQuestion();
-            String rightAnswer = setRightAnswer();
-            String userAnswer = Engine.getUserAnswer();
-            isLose = Engine.isLose(userAnswer, rightAnswer);
+    public static void preparation(int length) {
+        for (int i = 0; i < length; i++) {
+            int number = Engine.generateNumber(NUM_GENERATING_RANGE);
+            QUESTIONS[i] = fillQuestion(number);
+            ANSWERS[i] = fillAnswer(number);
         }
     }
 
-    public String setRightAnswer() {
-        return isPrime(question) ? "yes" : "no";
-    }
-
-    public void askQuestion() {
-        question = Engine.generateNumber();
-        System.out.println("Question: " + question);
+    public static String fillQuestion(int number) {
+        return String.valueOf(number);
     }
 
 
-    public boolean isPrime(int number) {
+    public static String fillAnswer(int number) {
+        return gameLogic(number) ? "yes" : "no";
+    }
+
+    public static boolean gameLogic(int number) {
         if (number < 2) {
             return false;
         }

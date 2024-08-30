@@ -12,10 +12,10 @@ public class App {
     private static String userMenuChoice = "";
 
     public static void main(String[] args) {
-        start();
-
+        startApp();
     }
-    public static void start() {
+
+    public static void startApp() {
         showMenu();
         pickGame();
     }
@@ -35,17 +35,13 @@ public class App {
     public static void pickGame() {
         switch (userMenuChoice) {
             case "1" -> Engine.welcome();
-            case "2" -> new Even();
-            case "3" -> new Calc();
-            case "4" -> new Gcd();
-            case "5" -> new Progression();
-            case "6" -> new Prime();
+            case "2" -> Even.play();
+            case "3" -> Calc.play();
+            case "4" -> Gcd.play();
+            case "5" -> Progression.play();
+            case "6" -> Prime.play();
             case "0" -> System.exit(0);
             default -> System.out.println("Invalid choice");
         }
     }
-
-    // Файл App.java предназначен
-    // только для отображения игрового меню,
-    // выбора и запуска нужной игры
 }

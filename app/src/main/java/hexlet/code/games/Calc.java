@@ -1,62 +1,51 @@
 package hexlet.code.games;
 
+import java.util.Random;
 import hexlet.code.Engine;
 
-import java.util.Random;
-
 public final class Calc {
+    private static final String RULES = "What is the result of the expression?";
+    private static final int NUM_GENERATING_RANGE = 20;
 
-    private int firstNum = 0;
-    private int secondNum = 0;
-    private String operator = "";
+    private static final int LENGTH = Engine.getMaxWins();
+    private static final String[] QUESTIONS = new String[LENGTH];
+    private static final String[] ANSWERS = new String[LENGTH];
 
-    private boolean isLose = false;
-
-    public Calc() {
-        String rules = "What is the result of the expression?";
-        Engine.start(rules);
-        startGame();
+    public static void play() {
+        preparation(LENGTH);
+        Engine.start(RULES, QUESTIONS, ANSWERS);
     }
 
-    public void startGame() {
-        while (!isLose) {
-            askQuestion();
-            String rightAnswer = setRightAnswer();
-            String userAnswer = Engine.getUserAnswer();
-            isLose = Engine.isLose(userAnswer, rightAnswer);
+    public static void preparation(int length) {
+        for (int i = 0; i < length; i++) {
+            int firstNum = Engine.generateNumber(NUM_GENERATING_RANGE);
+            String operator = generateOperator();
+            int secondNum = Engine.generateNumber(NUM_GENERATING_RANGE);
+            QUESTIONS[i] = fillQuestion(firstNum, operator, secondNum);
+            ANSWERS[i] = fillAnswer(firstNum, operator, secondNum);
         }
     }
 
-    public String setRightAnswer() {
-        return String.valueOf(calculate());
+    public static String fillQuestion(int firstNum, String operator, int secondNum) {
+        return firstNum + " " + operator + " " + secondNum;
     }
 
-    public void askQuestion() {
-        firstNum = Engine.generateNumber();
-        secondNum = Engine.generateNumber();
-        operator = generateOperator();
-        System.out.printf("Question: %d %s %d%n", firstNum, operator, secondNum);
+    public static String fillAnswer(int firstNumber, String operator, int secondNumber) {
+        return String.valueOf(gameLogic(firstNumber, operator, secondNumber));
     }
 
-    public String generateOperator() {
-        final String[] operators = {"+", "-", "*"};
-        int index = new Random().nextInt(operators.length);
-        return operators[index];
-    }
-
-    public int calculate() {
+    public static int gameLogic(int firstNum, String operator, int secondNum) {
         return switch (operator) {
             case "+" -> firstNum + secondNum;
             case "-" -> firstNum - secondNum;
             case "*" -> firstNum * secondNum;
-            case "/" -> {
-                if (secondNum == 0) {
-                    System.out.println("Error: Division by zero is not allowed.");
-                    throw new ArithmeticException("Division by zero");
-                }
-                yield firstNum / secondNum;
-            }
             default -> throw new IllegalArgumentException("Unknown operator: " + operator);
         };
+    }
+
+    public static String generateOperator() {
+        final String[] operators = {"+", "-", "*"};
+        int index = new Random().nextInt(operators.length);
+        return operators[index];
     }
 }

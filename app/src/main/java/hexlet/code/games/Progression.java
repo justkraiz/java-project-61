@@ -4,62 +4,59 @@ import hexlet.code.Engine;
 
 public final class Progression {
 
-    private static final int RANGE_MIN = 5;
-    private static final int RANGE_MAX = 10;
-    private int firstNum = 0;
-    private int valueBetweenNextNum = 0;
-    private int numberOfTerms = 0;
-    private int hiddenIndexInArray = 0;
 
-    private int[] question;
+    private static final String RULES = "What number is missing in the progression?";
+    private static final int NUM_GENERATING_RANGE = 20;
+    private static final int PROGRESSION_SIZE_MAX = 10;
+    private static final int PROGRESSION_SIZE_MIN = 5;
 
-    private boolean isLose = false; // stop while cycle when lose
+    private static final int LENGTH = Engine.getMaxWins();
+    private static final String[] QUESTIONS = new String[LENGTH];
+    private static final String[] ANSWERS = new String[LENGTH];
 
-    public Progression() {
-        String rules = "What number is missing in the progression?";
-        Engine.start(rules);
-        startGame();
+    public static void play() {
+        preparation(LENGTH);
+        Engine.start(RULES, QUESTIONS, ANSWERS);
     }
 
-    public void startGame() {
-        while (!isLose) {
-            askQuestion();
-            String rightAnswer = setRightAnswer();
-            String userAnswer = Engine.getUserAnswer();
-            isLose = Engine.isLose(userAnswer, rightAnswer);
+    public static void preparation(int length) {
+        for (int i = 0; i < length; i++) {
+            int firstNumber = Engine.generateNumber(NUM_GENERATING_RANGE);
+            int valBetweenNext = Engine.generateNumber(NUM_GENERATING_RANGE);
+            int size = Engine.generateNumber(PROGRESSION_SIZE_MIN, PROGRESSION_SIZE_MAX);
+            int hiddenIndexInArray = Engine.generateNumber(0, size - 1);
+            int[] progression = gameLogic(firstNumber, valBetweenNext, size);
+            QUESTIONS[i] = fillQuestion(progression, hiddenIndexInArray);
+            ANSWERS[i] = fillAnswer(progression, hiddenIndexInArray);
         }
     }
 
-    public String setRightAnswer() {
-        return String.valueOf(question[hiddenIndexInArray]);
-    }
-
-    public void askQuestion() {
-        firstNum = Engine.generateNumber();
-        valueBetweenNextNum = Engine.generateNumber();
-        numberOfTerms = Engine.generateNumberInRange(RANGE_MIN, RANGE_MAX);
-        hiddenIndexInArray = Engine.generateNumberInRange(0, numberOfTerms - 1);
-        question = generateProgression();
-        System.out.print("Question: ");
-        questionArrPrinter();
-    }
-
-    public void questionArrPrinter() {
-        for (int i = 0; i < question.length; i++) {
-            System.out.print(i == hiddenIndexInArray ? ".. " : question[i] + " ");
+    public static int[] generateProgression(int firstNumber, int valBetweenNext, int size) {
+        int[] progression = new int[size];
+        progression[0] = firstNumber;
+        for (int i = 1; i < size; i++) {
+            progression[i] = progression[i - 1] + valBetweenNext;
         }
-        System.out.println();
+        return progression;
     }
 
-
-    public int[] generateProgression() {
-        var array = new int[numberOfTerms];
-        var temp = firstNum;
-        array[0] = firstNum;
-        for (int i = 1; i < numberOfTerms; i++) {
-            array[i] = temp + valueBetweenNextNum;
-            temp = array[i];
+    public static String fillQuestion(int[] progression, int hiddenIndex) {
+        StringBuilder sb = new StringBuilder();
+        for (var num: progression) {
+            if (num == progression[hiddenIndex]) {
+                sb.append(".. ");
+            } else {
+                sb.append(num).append(" ");
+            }
         }
-        return array;
+        return sb.toString().trim();
+    }
+
+    public static String fillAnswer(int[] progression, int hiddenIndex) {
+        return String.valueOf(progression[hiddenIndex]);
+    }
+
+    public static int[] gameLogic(int firstNumber, int valBetweenNext, int size) {
+        return generateProgression(firstNumber, valBetweenNext, size);
     }
 }
