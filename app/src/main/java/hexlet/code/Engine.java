@@ -1,17 +1,17 @@
 package hexlet.code;
 
-import java.util.Random;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public final class Engine {
     private static String userName;
-    private static final int MAX_WINS = 3;
+    public static final int MAX_WINS = 3;
 
-    public static void start(String rules, String[] questions, String[] answers) {
+    public static void start(String rules, HashMap<String, String> questionsAndAnswers) {
         welcome();
         printRules(rules);
-        playGame(questions, answers);
-
+        playGame(questionsAndAnswers);
     }
 
     public static void welcome() {
@@ -25,60 +25,28 @@ public final class Engine {
         System.out.println(gameRules);
     }
 
-    public static void playGame(String[] questions, String[] answers) {
+    public static void playGame(HashMap<String, String> questionsAndAnswers) {
         int currentWins = 0;
-        while (currentWins < MAX_WINS) {
-            System.out.println("Question: " + questions[currentWins]);
-            var userAnswer = getUserAnswer();
-            var rightAnswer = answers[currentWins];
+        Iterator<String> keyIterator = questionsAndAnswers.keySet().iterator();
 
-            if (isUserRight(userAnswer, rightAnswer)) {
+        while (currentWins < MAX_WINS) {
+            var question = keyIterator.next();
+            System.out.println("Question: " + question);
+            System.out.print("Your answer: ");
+            var userAnswer = new Scanner(System.in).nextLine();
+            var rightAnswer = questionsAndAnswers.get(question);
+
+            if (userAnswer.trim().equalsIgnoreCase(rightAnswer)) {
                 System.out.println("Correct!");
                 currentWins++;
             } else {
-                printIncorrectAnswerMessage(userAnswer, rightAnswer);
-                closeApplication();
+                System.out.printf("'%s' is wrong answer ;(. Correct answer was '%s'.%nLet's try again, %s!%n",
+                        userAnswer, rightAnswer, userName);
+                System.exit(0);
             }
         }
-        printCongratulations();
-        closeApplication();
-    }
-
-    public static boolean isUserRight(String userAnswer, String rightAnswer) {
-        return userAnswer.equalsIgnoreCase(rightAnswer);
-    }
-
-    public static String getUserAnswer() {
-        System.out.print("Your answer: ");
-        return new Scanner(System.in).nextLine();
-    }
-
-    public static void printCongratulations() {
         System.out.println("Congratulations, " + userName + "!");
-    }
-
-    public static void printIncorrectAnswerMessage(String userAnswer, String rightAnswer) {
-        System.out.printf("'%s' is wrong answer ;(. Correct answer was '%s'.%nLet's try again, %s!%n",
-                userAnswer, rightAnswer, userName);
-    }
-
-    public static void closeApplication() {
         System.exit(0);
     }
 
-    //generate from 1 -> range
-    public static int generateNumber(int range) {
-        Random random = new Random();
-        return random.nextInt(range) + 1;
-    }
-
-    //generate from min -> max values
-    public static int generateNumber(int min, int max) {
-        Random random = new Random();
-        return random.nextInt((max - min) + 1)  + min;
-    }
-
-    public static int getMaxWins() {
-        return MAX_WINS;
-    }
 }

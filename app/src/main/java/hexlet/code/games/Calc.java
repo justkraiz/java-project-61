@@ -1,37 +1,30 @@
 package hexlet.code.games;
 
-import java.util.Random;
+import java.util.HashMap;
 import hexlet.code.Engine;
+import hexlet.code.utils.Utils;
 
 public final class Calc {
     private static final String RULES = "What is the result of the expression?";
     private static final int NUM_GENERATING_RANGE = 20;
-
-    private static final int LENGTH = Engine.getMaxWins();
-    private static final String[] QUESTIONS = new String[LENGTH];
-    private static final String[] ANSWERS = new String[LENGTH];
+    private static final int LENGTH = Engine.MAX_WINS;
 
     public static void play() {
-        preparation(LENGTH);
-        Engine.start(RULES, QUESTIONS, ANSWERS);
+        Engine.start(RULES, preparation(LENGTH));
     }
 
-    public static void preparation(int length) {
-        for (int i = 0; i < length; i++) {
-            int firstNum = Engine.generateNumber(NUM_GENERATING_RANGE);
-            String operator = generateOperator();
-            int secondNum = Engine.generateNumber(NUM_GENERATING_RANGE);
-            QUESTIONS[i] = fillQuestion(firstNum, operator, secondNum);
-            ANSWERS[i] = fillAnswer(firstNum, operator, secondNum);
+    public static HashMap<String, String> preparation(int length) {
+        var questionsAndAnswers = new HashMap<String, String>();
+
+        while (questionsAndAnswers.size() < length) {
+            int firstNum = Utils.generateNumber(NUM_GENERATING_RANGE);
+            String operator = Utils.generateOperator();
+            int secondNum = Utils.generateNumber(NUM_GENERATING_RANGE);
+            String question = firstNum + " " + operator + " " + secondNum;
+            String answer = String.valueOf(gameLogic(firstNum, operator, secondNum));
+            questionsAndAnswers.put(question, answer);
         }
-    }
-
-    public static String fillQuestion(int firstNum, String operator, int secondNum) {
-        return firstNum + " " + operator + " " + secondNum;
-    }
-
-    public static String fillAnswer(int firstNumber, String operator, int secondNumber) {
-        return String.valueOf(gameLogic(firstNumber, operator, secondNumber));
+        return questionsAndAnswers;
     }
 
     public static int gameLogic(int firstNum, String operator, int secondNum) {
@@ -43,9 +36,4 @@ public final class Calc {
         };
     }
 
-    public static String generateOperator() {
-        final String[] operators = {"+", "-", "*"};
-        int index = new Random().nextInt(operators.length);
-        return operators[index];
-    }
 }

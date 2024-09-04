@@ -1,35 +1,30 @@
 package hexlet.code.games;
 
 import hexlet.code.Engine;
+import hexlet.code.utils.Utils;
+
+import java.util.HashMap;
 
 public final class Gcd {
     private static final String RULES = "Find the greatest common divisor of given numbers.";
     private static final int NUM_GENERATING_RANGE = 20;
-
-    private static final int LENGTH = Engine.getMaxWins();
-    private static final String[] QUESTIONS = new String[LENGTH];
-    private static final String[] ANSWERS = new String[LENGTH];
+    private static final int LENGTH = Engine.MAX_WINS;
 
     public static void play() {
-        preparation(LENGTH);
-        Engine.start(RULES, QUESTIONS, ANSWERS);
+        Engine.start(RULES, preparation(LENGTH));
     }
 
-    public static void preparation(int length) {
-        for (int i = 0; i < length; i++) {
-            int firstNumber = Engine.generateNumber(NUM_GENERATING_RANGE);
-            int secondNumber = Engine.generateNumber(NUM_GENERATING_RANGE);
-            QUESTIONS[i] = fillQuestion(firstNumber, secondNumber);
-            ANSWERS[i] = fillAnswer(firstNumber, secondNumber);
+    public static HashMap<String, String> preparation(int length) {
+        var questionsAndAnswers = new HashMap<String, String>();
+
+        while (questionsAndAnswers.size() < length) {
+            int firstNumber = Utils.generateNumber(NUM_GENERATING_RANGE);
+            int secondNumber = Utils.generateNumber(NUM_GENERATING_RANGE);
+            String question = firstNumber + " " + secondNumber;
+            String answer = String.valueOf(gameLogic(firstNumber, secondNumber));
+            questionsAndAnswers.put(question, answer);
         }
-    }
-
-    public static String fillQuestion(int firstNumber, int secondNumber) {
-        return firstNumber + " " + secondNumber;
-    }
-
-    public static String fillAnswer(int firstNumber, int secondNumber) {
-        return String.valueOf(gameLogic(firstNumber, secondNumber));
+        return questionsAndAnswers;
     }
 
     public static int gameLogic(int x, int y) {

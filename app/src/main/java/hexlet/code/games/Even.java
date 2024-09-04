@@ -1,35 +1,29 @@
 package hexlet.code.games;
 
 import hexlet.code.Engine;
+import hexlet.code.utils.Utils;
+
+import java.util.HashMap;
 
 public final class Even {
     private static final String RULES = "Answer 'yes' if the number is even, otherwise answer 'no'.";
     private static final int NUM_GENERATING_RANGE = 20;
-
-    private static final int LENGTH = Engine.getMaxWins();
-    private static final String[] QUESTIONS = new String[LENGTH];
-    private static final String[] ANSWERS = new String[LENGTH];
+    private static final int LENGTH = Engine.MAX_WINS;
 
     public static void play() {
-        preparation(LENGTH);
-        Engine.start(RULES, QUESTIONS, ANSWERS);
+        Engine.start(RULES, preparation(LENGTH));
     }
 
-    public static void preparation(int length) {
+    public static HashMap<String, String> preparation(int length) {
+        var questionsAndAnswers = new HashMap<String, String>();
 
-        for (int i = 0; i < length; i++) {
-            int number = Engine.generateNumber(NUM_GENERATING_RANGE);
-            QUESTIONS[i] = fillQuestion(number);
-            ANSWERS[i] = fillAnswer(number);
+        while (questionsAndAnswers.size() < length) {
+            int number = Utils.generateNumber(NUM_GENERATING_RANGE);
+            String question = String.valueOf(number);
+            String answer = gameLogic(number);
+            questionsAndAnswers.put(question, answer);
         }
-    }
-
-    public static String fillQuestion(int number) {
-        return String.valueOf(number);
-    }
-
-    public static String fillAnswer(int number) {
-        return gameLogic(number);
+        return questionsAndAnswers;
     }
 
     public static String gameLogic(int number) {
