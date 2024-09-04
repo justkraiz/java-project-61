@@ -10,8 +10,7 @@ public final class Engine {
 
     public static void start(String rules, Map<String, String> questionsAndAnswers) {
         welcome();
-        printRules(rules);
-        playGame(questionsAndAnswers);
+        playGame(questionsAndAnswers, rules);
     }
 
     public static void welcome() {
@@ -21,14 +20,11 @@ public final class Engine {
         System.out.println("Hello, " + userName + "!");
     }
 
-    public static void printRules(String gameRules) {
-        System.out.println(gameRules);
-    }
-
-    public static void playGame(Map<String, String> questionsAndAnswers) {
+    public static void playGame(Map<String, String> questionsAndAnswers, String rules) {
         int currentWins = 0;
         Iterator<String> keyIterator = questionsAndAnswers.keySet().iterator();
 
+        System.out.println(rules);
         while (currentWins < MAX_WINS) {
             var question = keyIterator.next();
             System.out.println("Question: " + question);
