@@ -1,14 +1,14 @@
 package hexlet.code;
 
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Scanner;
 
 public final class Engine {
     private static String userName;
     public static final int MAX_WINS = 3;
 
-    public static void start(String rules, HashMap<String, String> questionsAndAnswers) {
+    public static void start(String rules, Map<String, String> questionsAndAnswers) {
         welcome();
         printRules(rules);
         playGame(questionsAndAnswers);
@@ -25,7 +25,7 @@ public final class Engine {
         System.out.println(gameRules);
     }
 
-    public static void playGame(HashMap<String, String> questionsAndAnswers) {
+    public static void playGame(Map<String, String> questionsAndAnswers) {
         int currentWins = 0;
         Iterator<String> keyIterator = questionsAndAnswers.keySet().iterator();
 
