@@ -1,6 +1,8 @@
 package hexlet.code.games;
 
 import java.util.HashMap;
+import java.util.Map;
+
 import hexlet.code.Engine;
 import hexlet.code.utils.Utils;
 
@@ -13,7 +15,7 @@ public final class Calc {
         Engine.start(RULES, preparation(LENGTH));
     }
 
-    public static HashMap<String, String> preparation(int length) {
+    public static Map<String, String> preparation(int length) {
         var questionsAndAnswers = new HashMap<String, String>();
 
         while (questionsAndAnswers.size() < length) {

@@ -4,6 +4,7 @@ import hexlet.code.Engine;
 import hexlet.code.utils.Utils;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public final class Even {
     private static final String RULES = "Answer 'yes' if the number is even, otherwise answer 'no'.";
@@ -14,7 +15,7 @@ public final class Even {
         Engine.start(RULES, preparation(LENGTH));
     }
 
-    public static HashMap<String, String> preparation(int length) {
+    public static Map<String, String> preparation(int length) {
         var questionsAndAnswers = new HashMap<String, String>();
 
         while (questionsAndAnswers.size() < length) {

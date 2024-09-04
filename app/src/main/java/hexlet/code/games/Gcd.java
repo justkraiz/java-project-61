@@ -4,6 +4,7 @@ import hexlet.code.Engine;
 import hexlet.code.utils.Utils;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public final class Gcd {
     private static final String RULES = "Find the greatest common divisor of given numbers.";
@@ -14,7 +15,7 @@ public final class Gcd {
         Engine.start(RULES, preparation(LENGTH));
     }
 
-    public static HashMap<String, String> preparation(int length) {
+    public static Map<String, String> preparation(int length) {
         var questionsAndAnswers = new HashMap<String, String>();
 
         while (questionsAndAnswers.size() < length) {
