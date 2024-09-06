@@ -13,22 +13,21 @@ public final class Progression {
     private static final int NUM_GENERATING_RANGE = 20;
     private static final int PROGRESSION_SIZE_MAX = 10;
     private static final int PROGRESSION_SIZE_MIN = 5;
-    private static final int LENGTH = Engine.MAX_WINS;
 
     public static void play() {
-        Engine.start(RULES, preparation(LENGTH));
+        Engine.start(RULES, generateQuestionsAndAnswers());
     }
 
-    public static Map<String, String> preparation(int length) {
+    public static Map<String, String> generateQuestionsAndAnswers() {
         var questionsAndAnswers = new HashMap<String, String>();
 
-        while (questionsAndAnswers.size() < length) {
+        while (questionsAndAnswers.size() < Engine.MAX_WINS) {
             int firstNumber = Utils.generateNumber(NUM_GENERATING_RANGE);
             int valBetweenNext = Utils.generateNumber(NUM_GENERATING_RANGE);
             int size = Utils.generateNumber(PROGRESSION_SIZE_MIN, PROGRESSION_SIZE_MAX);
             int hiddenIndexInArray = Utils.generateNumber(0, size - 1);
 
-            int[] progression = Utils.generateProgression(firstNumber, valBetweenNext, size);
+            int[] progression = generateProgression(firstNumber, valBetweenNext, size);
             String question = hideIndexInProgression(progression, hiddenIndexInArray);
             String answer = String.valueOf(progression[hiddenIndexInArray]);
             questionsAndAnswers.put(question, answer);
@@ -46,5 +45,14 @@ public final class Progression {
             }
         }
         return sb.toString().trim();
+    }
+
+    public static int[] generateProgression(int firstNumber, int valBetweenNext, int size) {
+        int[] progression = new int[size];
+        progression[0] = firstNumber;
+        for (int i = 1; i < size; i++) {
+            progression[i] = progression[i - 1] + valBetweenNext;
+        }
+        return progression;
     }
 }

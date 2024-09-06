@@ -9,33 +9,32 @@ import java.util.Map;
 public final class Prime {
     private static final String RULES = "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
     private static final int NUM_GENERATING_RANGE = 20;
-    private static final int LENGTH = Engine.MAX_WINS;
 
     public static void play() {
-        Engine.start(RULES, preparation(LENGTH));
+        Engine.start(RULES, generateQuestionsAndAnswers());
     }
 
-    public static Map<String, String> preparation(int length) {
+    public static Map<String, String> generateQuestionsAndAnswers() {
         var questionsAndAnswers = new HashMap<String, String>();
 
-        while (questionsAndAnswers.size() < length) {
+        while (questionsAndAnswers.size() < Engine.MAX_WINS) {
             int number = Utils.generateNumber(NUM_GENERATING_RANGE);
             String question = String.valueOf(number);
-            String answer = gameLogic(number);
+            String answer = isPrime(number) ? "yes" : "no";
             questionsAndAnswers.put(question, answer);
         }
         return questionsAndAnswers;
     }
 
-    public static String gameLogic(int number) {
+    public static boolean isPrime(int number) {
         if (number < 2) {
-            return "no";
+            return false;
         }
         for (int i = 2; i <= Math.sqrt(number); i++) {
             if (number % i == 0) {
-                return "no";
+                return false;
             }
         }
-        return "yes";
+        return true;
     }
 }

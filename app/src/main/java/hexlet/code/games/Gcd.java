@@ -9,26 +9,25 @@ import java.util.Map;
 public final class Gcd {
     private static final String RULES = "Find the greatest common divisor of given numbers.";
     private static final int NUM_GENERATING_RANGE = 20;
-    private static final int LENGTH = Engine.MAX_WINS;
 
     public static void play() {
-        Engine.start(RULES, preparation(LENGTH));
+        Engine.start(RULES, generateQuestionsAndAnswers());
     }
 
-    public static Map<String, String> preparation(int length) {
+    public static Map<String, String> generateQuestionsAndAnswers() {
         var questionsAndAnswers = new HashMap<String, String>();
 
-        while (questionsAndAnswers.size() < length) {
+        while (questionsAndAnswers.size() < Engine.MAX_WINS) {
             int firstNumber = Utils.generateNumber(NUM_GENERATING_RANGE);
             int secondNumber = Utils.generateNumber(NUM_GENERATING_RANGE);
             String question = firstNumber + " " + secondNumber;
-            String answer = String.valueOf(gameLogic(firstNumber, secondNumber));
+            String answer = String.valueOf(gcd(firstNumber, secondNumber));
             questionsAndAnswers.put(question, answer);
         }
         return questionsAndAnswers;
     }
 
-    public static int gameLogic(int x, int y) {
+    public static int gcd(int x, int y) {
         while (x != y) {
             if (x > y) {
                 x = x - y;
